@@ -1,0 +1,61 @@
+---
+title: "EDS 221 Day 2 End of Day Task"
+author: "Tom Gibbens-Matsuyama"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Creating a vector vec_1
+
+```{r}
+vec_1 <- c(2, 5, 9, 10, 8, 12, 1, 0)
+
+# Classifying Data
+
+class(vec_1) #numeric
+typeof(vec_1) #double
+
+# Access other elements
+
+vec_1_e3 <- vec_1[3]
+vec_1_e1 <- vec_1[1]
+
+vec_1_e5toe7 <- vec_1[5:7]
+
+vec_1_char <- as.character(vec_1)
+vec_1_char
+```
+
+## Creating a vector vec_2
+
+```{r}
+vec_2 <- c(town = "Santa Barbara", location = "Rincon", swell = "south")
+vec_2
+
+class(vec_2) # Class is a character
+length(vec_2) # Length is 3
+
+# Access the 2nd element by name ----
+vec_2_e2 <- vec_2["location"]
+vec_2_e2
+```
+
+## Creating a data frame in R
+
+```{r}
+ df_1 <- data.frame(region = c("A", "B", "A", "D"),
+                    species = c("otter", "great white", "sea lion", "gray whale"),
+                    count = c(12, 2, 36, 6))
+
+df_1
+
+class(df_1) # class is data frame
+
+class(df_1$species) # class is character
+
+max_count <- max(df_1$count)
+max_count
+```
+

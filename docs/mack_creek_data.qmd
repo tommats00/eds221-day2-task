@@ -1,0 +1,83 @@
+---
+title: "Mack Creek Salamander and Cutthroat Trout"
+author: "Tom Gibbens-Matsuyama"
+format: html
+editor: visual
+execute: 
+  warning: false
+  message: false
+editor_options: 
+  chunk_output_type: console
+---
+
+## Load Libraries
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(here)
+```
+
+## Load in Mack Creek Data
+
+```{r}
+mack_verts <- read_csv(here::here("data", "AS00601.csv"))
+
+# Cleaning mack_vert data
+
+mack_verts <- clean_names(mack_verts)
+```
+
+
+## Indexing information
+
+```{r}
+mc_wt_5 <- mack_verts[5,]$weight
+
+mc_length_8_20 <- mack_verts[8:20,]$length1
+
+mc_dates <- mack_verts[]$sampledate
+view(mc_dates)
+```
+
+## Creating a subset
+
+```{r}
+subset(mack_verts, species == "DITE")
+mc_salamanders <- subset(mack_verts, species == "DITE")
+view(mc_salamanders)
+
+# Create a ggplot
+
+salamander_size <- ggplot(data = mc_salamanders, aes(x = length1,
+                                  y = weight), color = year) +
+  geom_point(color = "blue", alpha = 0.25, size = 1) + 
+  theme_minimal() +
+  labs(title = "Snout Length (mm) versus weight (g) for Pacific Giant Salamnder",
+       x = "Snout Length (mm)",
+       y = "Weight (g)")
+
+ggsave(here::here("figs", "salamander_size.png"))
+```
+
+#3 Cut Throat Trout Data
+
+```{r}
+mc_trout <- subset(mack_verts, species == "ONCL")
+view(mc_trout)
+
+# Create a scatter plot
+
+cutthroat_size <- ggplot(mc_trout, aes(x = length1,
+                     y = weight, color = reach)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Cutthroat Trout Length (mm) versus their Weight (g)",
+       x = "Length (mm)",
+       y = "Weight (g)") +
+  facet_wrap(~reach) +
+  scale_color_manual(values = c("red", "green", "blue"))
+
+ggsave(here::here("figs", "cutthroat_size.png"))
+```
+
